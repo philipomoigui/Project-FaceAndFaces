@@ -9,7 +9,7 @@ using OpenCvSharp;
 
 namespace FacesApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/faces")]
     [ApiController]
     public class FacesController : ControllerBase
     {
