@@ -17,7 +17,7 @@ namespace Faces.WebMVC.Extensions
                 config =>
                 {
                     config.Host("localhost", "/", h => { });
-                    services.AddSingleton<IBusControl>(provider => provider.GetRequiredService<IBusControl>());
+                    services.AddSingleton(provider => provider.GetRequiredService<IBusControl>());
                     services.AddSingleton<IHostedService, BusService>();
                 }
              ));
