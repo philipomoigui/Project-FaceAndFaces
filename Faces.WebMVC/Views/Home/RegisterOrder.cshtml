@@ -1,0 +1,38 @@
+﻿@model OrderViewModel
+
+@{
+    ViewData["Title"] = "Register Order Page";
+}
+
+<h1>RegisterOrder</h1>
+
+<h4>OrderViewModel</h4>
+<hr />
+<div class="row">
+    <div>
+        <form asp-action="RegisterOrder" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group col-md-4">
+                <label asp-for="UserEmail" class="control-label"></label>
+                <input asp-for="UserEmail" class="form-control" />
+                <span asp-validation-for="UserEmail" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group col-md-8">
+                <p>Upload your image using the button below</p>
+                <input type="file" asp-for="File" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
