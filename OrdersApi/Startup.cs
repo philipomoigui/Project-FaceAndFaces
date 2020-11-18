@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OrdersApi.Extensions;
+using OrdersApi.Services;
 
 namespace OrdersApi
 {
@@ -29,6 +30,8 @@ namespace OrdersApi
         {
             services.AddMassTransit();
             services.ConfigureRabbitWithMT();
+            services.AddSingleton<IHostedService, BusService>();
+            services.ConfigureDbContext(Configuration);
             services.AddControllers();
         }
 

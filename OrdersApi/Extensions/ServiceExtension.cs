@@ -1,8 +1,11 @@
 ﻿using GreenPipes;
 using MassTransit;
 using Messaging.InterfacesConstant.Constants;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OrdersApi.Messages.Consumer;
+using OrdersApi.Persistence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +30,13 @@ namespace OrdersApi.Extensions
                     config.ConfigureEndpoints((IBusRegistrationContext)provider);
                 }
             ));
+        }
+
+        public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddDbContext<OrdersContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), sqloptions => {
+                sqloptions.EnableRetryOnFailure();
+            }));
         }
     }
 }
