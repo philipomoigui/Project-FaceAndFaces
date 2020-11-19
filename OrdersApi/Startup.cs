@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OrdersApi.Extensions;
+using OrdersApi.Persistence;
 using OrdersApi.Services;
 
 namespace OrdersApi
@@ -28,8 +29,10 @@ namespace OrdersApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMassTransit();
+            services.ConfigureMassTransit();
+            services.AddHttpClient();
             services.ConfigureRabbitWithMT();
+            services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddSingleton<IHostedService, BusService>();
             services.ConfigureDbContext(Configuration);
             services.AddControllers();

@@ -38,5 +38,13 @@ namespace OrdersApi.Extensions
                 sqloptions.EnableRetryOnFailure();
             }));
         }
+
+        public static void ConfigureMassTransit(this IServiceCollection services)
+        {
+            services.AddMassTransit(m =>
+            {
+                m.AddConsumer<RegisterOrderCommandConsumer>();
+            });
+        }
     }
 }
