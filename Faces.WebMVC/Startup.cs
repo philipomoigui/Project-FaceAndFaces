@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Faces.WebMVC.Extensions;
+using Faces.WebMVC.RestClients;
 using MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,6 +28,7 @@ namespace Faces.WebMVC
         {
             services.AddMassTransit();
             services.ConfigureRabbitMqWithMT();
+            services.AddHttpClient<IOrderManagementApi, OrderManagementApi>();
             services.AddControllersWithViews();
         }
 

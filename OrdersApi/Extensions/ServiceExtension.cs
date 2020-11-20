@@ -58,12 +58,26 @@ namespace OrdersApi.Extensions
             }));
         }
 
+        public static void ConfigureCors(this IServiceCollection services)
+        {
+            services.AddCors(option => {
+                option.AddPolicy("CorsPolicy", builder =>
+
+                builder
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .SetIsOriginAllowed((host) => true)
+                .AllowCredentials()
+                );
+            });
+        }
+
         //public static void ConfigureMassTransit(this IServiceCollection services)
         //{
         //    services.AddMassTransit(m => {
         //        m.AddConsumer<RegisterOrderCommandConsumer>();
         //    });
-            
+
         //}
     }
 }

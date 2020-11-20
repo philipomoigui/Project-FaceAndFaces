@@ -35,6 +35,7 @@ namespace OrdersApi
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddSingleton<IHostedService, BusService>();
             services.ConfigureDbContext(Configuration);
+            services.ConfigureCors();
             services.AddControllers();
         }
 
@@ -47,6 +48,8 @@ namespace OrdersApi
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 
