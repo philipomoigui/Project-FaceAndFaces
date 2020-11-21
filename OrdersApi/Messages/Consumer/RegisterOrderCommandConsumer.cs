@@ -43,7 +43,7 @@ namespace OrdersApi.Messages.Consumer
                     result.OrderId,
                     result.ImageUrl,
                     result.UserEmail,
-                    Faces = result.ImageData
+                    result.ImageData
                 });
             }
         }

@@ -15,41 +15,58 @@ namespace OrdersApi.Extensions
 {
     public static class ServiceExtension
     {
-        //public static void ConfigureRabbitWithMT(this IServiceCollection services)
-        //{
-        //    services.AddSingleton(provider => Bus.Factory.CreateUsingRabbitMq(
-        //        config =>
-        //        {
-        //            config.Host("localhost", "/", h => { });
-        //            config.ReceiveEndpoint(RabbitMqMassTransitConstants.RegisterOrderCommandQueue, e => {
-        //                e.PrefetchCount = 16;
-        //                e.UseMessageRetry(x => x.Interval(2, TimeSpan.FromSeconds(10)));
-        //                e.Consumer<RegisterOrderCommandConsumer>(provider);
-        //            });
-
-        //            //config.ConfigureEndpoints(provider);
-        //        }
-        //    ));
-        //}
-
         public static void ConfigureRabbitWithMT(this IServiceCollection services)
+        {
+            services.AddSingleton(provider => Bus.Factory.CreateUsingRabbitMq(
+                config =>
+                {
+                    config.Host("localhost", "/", h => { });
+                    config.ReceiveEndpoint(RabbitMqMassTransitConstants.RegisterOrderCommandQueue, e =>
+                    {
+                        e.PrefetchCount = 16;
+                        e.UseMessageRetry(x => x.Interval(2, TimeSpan.FromSeconds(10)));
+                        e.Consumer<RegisterOrderCommandConsumer>(provider);
+                    });
+
+                    config.ReceiveEndpoint(RabbitMqMassTransitConstants.OrderDispachedServiceQueue, e =>
+                    {
+                        e.PrefetchCount = 16;
+                        e.UseMessageRetry(x => x.Interval(2, TimeSpan.FromSeconds(10)));
+                        e.Consumer<OrderDispatchedEventConsumer>(provider);
+                    });
+
+                    //config.ConfigureEndpoints(provider);
+                }
+            ));
+        }
+
+        public static void ConfigureMassTransit(this IServiceCollection services)
         {
             services.AddMassTransit(x =>
             {
                 x.AddConsumer<RegisterOrderCommandConsumer>();
-                x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
-                {
-                    config.UseHealthCheck(provider);
-                    config.Host("localhost", "/", h => { });
-                    config.ReceiveEndpoint(RabbitMqMassTransitConstants.RegisterOrderCommandQueue, ep =>
-                    {
-                        ep.PrefetchCount = 16;
-                        ep.UseMessageRetry(x => x.Interval(2, TimeSpan.FromSeconds(10)));
-                        ep.ConfigureConsumer<RegisterOrderCommandConsumer>(provider);
-                    });
-                }));
+                x.AddConsumer<OrderDispatchedEventConsumer>();
             });
         }
+
+        //public static void ConfigureRabbitWithMT(this IServiceCollection services)
+        //{
+        //    services.AddMassTransit(x =>
+        //    {
+        //        x.AddConsumer<RegisterOrderCommandConsumer>();
+        //        x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
+        //        {
+        //            config.UseHealthCheck(provider);
+        //            config.Host("localhost", "/", h => { });
+        //            config.ReceiveEndpoint(RabbitMqMassTransitConstants.RegisterOrderCommandQueue, ep =>
+        //            {
+        //                ep.PrefetchCount = 16;
+        //                ep.UseMessageRetry(x => x.Interval(2, TimeSpan.FromSeconds(10)));
+        //                ep.ConfigureConsumer<RegisterOrderCommandConsumer>(provider);
+        //            });
+        //        }));
+        //    });
+        //}
 
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {

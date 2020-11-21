@@ -1,11 +1,14 @@
-﻿using GreenPipes;
+﻿using EmailService;
+using GreenPipes;
 using MassTransit;
 using Messaging.InterfacesConstant.Constants;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using NotificationService.Messages.Consumer;
 using NotificationService.Service;
 using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace NotificationService
@@ -22,8 +25,27 @@ namespace NotificationService
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
             var hostBuilder = Host.CreateDefaultBuilder(args)
+                .ConfigureHostConfiguration(configHost =>
+                {
+                    configHost.SetBasePath(Directory.GetCurrentDirectory());
+                    configHost.AddJsonFile("appsettings.json", optional: false);
+                    configHost.AddEnvironmentVariables();
+                    configHost.AddCommandLine(args);
+                })
+                .ConfigureAppConfiguration((hostContext, config) =>
+                {
+                    config.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: false);
+                })
+
                 .ConfigureServices((hostContext, services) =>
                 {
+                    var emailConfig = hostContext.Configuration.GetSection("EmailConfiguration")
+                    .Get<EmailConfig>();
+
+                    services.AddSingleton<EmailConfig>();
+
+                    services.AddScoped<IEmailSender, EmailSender>();
+
                     services.AddMassTransit(x => {
                         x.AddConsumer<OrderProcessedEventConsumer>();
                     });
@@ -35,7 +57,7 @@ namespace NotificationService
                         {
                             e.PrefetchCount = 16;
                             e.UseMessageRetry(x => x.Interval(2, TimeSpan.FromSeconds(10)));
-                            e.Consumer<OrderProcessedEventConsumer>();
+                            e.Consumer<OrderProcessedEventConsumer>(provider);
                         });
                     }));
 
