@@ -18,7 +18,7 @@ namespace Faces.WebMVC.ViewModel
         [Display(Name = "Image Url")]
         public string ImageUrl { get; set; }
         [Display(Name = "Order Status")]
-        public string StatusString { get; set; }
+        public string Status { get; set; }
         public byte[] ImageData { get; set; }
         public List<OrderDetailsViewModel> orderDetails { get; set; }
     }

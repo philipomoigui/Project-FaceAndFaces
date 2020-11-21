@@ -10,5 +10,6 @@ namespace Faces.WebMVC.ViewModel
         public Guid OrderId { get; set; }
         public int OrderDetailId { get; set; }
         public byte[] FaceData { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

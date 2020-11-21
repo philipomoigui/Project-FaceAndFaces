@@ -1,0 +1,42 @@
+﻿@model OrderViewModel
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<h2>Order Details</h2>
+
+<br />
+
+<h3>Order Id : @Model.OrderId</h3>
+<br />
+
+<h3>User Email: @Model.UserEmail</h3>
+<br />
+
+<h3>Picture</h3>
+
+<img src="@Model.ImageUrl" alt="" style="width:100px; height:100px;" />
+<br />
+
+Order Status: @Model.Status
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Image</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var detail in Model.orderDetails)
+        {
+        <tr>
+            <td>@detail.OrderDetailId</td>
+            <td><img src="@detail.ImageUrl" style="width:40px; height:40px" /></td>
+        </tr>
+        }
+    </tbody>
+    
+</table>
