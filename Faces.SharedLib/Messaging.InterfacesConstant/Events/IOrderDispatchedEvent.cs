@@ -4,7 +4,9 @@ using System.Text;
 
 namespace Messaging.InterfacesConstant.Events
 {
-    class IOrderDispatchedEvent
+    public class IOrderDispatchedEvent
     {
+        public Guid OrderId { get; set; }
+        public DateTime DispatchDateTime { get; set; }
     }
 }
