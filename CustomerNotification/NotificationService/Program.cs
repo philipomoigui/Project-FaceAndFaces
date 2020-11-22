@@ -42,7 +42,7 @@ namespace NotificationService
                     var emailConfig = hostContext.Configuration.GetSection("EmailConfiguration")
                     .Get<EmailConfig>();
 
-                    services.AddSingleton<EmailConfig>();
+                    services.AddSingleton(emailConfig);
 
                     services.AddScoped<IEmailSender, EmailSender>();
 

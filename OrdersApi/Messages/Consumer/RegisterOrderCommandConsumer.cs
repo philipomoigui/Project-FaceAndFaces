@@ -40,10 +40,10 @@ namespace OrdersApi.Messages.Consumer
                 //published IProcessedevent data
                 await context.Publish<IOrderProcessedEvent>(new
                 {
-                    result.OrderId,
+                    Faces = faces,
+                    OrderId = orderId,
                     result.ImageUrl,
                     result.UserEmail,
-                    result.ImageData
                 });
             }
         }
