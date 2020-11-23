@@ -49,6 +49,7 @@ namespace OrdersApi
                 app.UseDeveloperExceptionPage();
             }
 
+           
             app.UseHttpsRedirection();
 
             app.UseCors("CorsPolicy");

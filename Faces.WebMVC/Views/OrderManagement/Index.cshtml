@@ -35,7 +35,7 @@
 
         var timerId;
         const connection = new signalR.HubConnectionBuilder()
-            .withUrl('http://localhost:5050/orderhub')
+            .withUrl('https://localhost:44303/orderhub')
             .configureLogging(signalR.LogLevel.Debug)
             .withAutomaticReconnect()
             .build();
