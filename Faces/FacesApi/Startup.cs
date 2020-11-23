@@ -28,7 +28,7 @@ namespace FacesApi
         {
             services.ConfigureCors();
 
-            services.ConfigureAzureCrednetials(Configuration);
+            services.ConfigureAzureCredentials(Configuration);
 
             services.ConfigureImageSharpSynchronousCalls();
 

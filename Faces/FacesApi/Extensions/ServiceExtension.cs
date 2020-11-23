@@ -25,12 +25,12 @@ namespace FacesAPI.Extensions
                  );
             });
 
-        public static void ConfigureAzureCrednetials(this IServiceCollection services, IConfiguration configuration)
+        public static void ConfigureAzureCredentials(this IServiceCollection services, IConfiguration configuration)
         {
             var config = new AzureFaceConfiguration();
             configuration.Bind("AzureFaceConfiguration", config);
             services.AddSingleton(config);
-        };
+        }
 
         public static void ConfigureImageSharpSynchronousCalls(this IServiceCollection services)
         {
