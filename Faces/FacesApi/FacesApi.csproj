@@ -5,8 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.Face" Version="2.6.0-preview.1" />
     <PackageReference Include="OpenCvSharp4" Version="4.5.0.20201013" />
     <PackageReference Include="OpenCvSharp4.Windows" Version="4.5.0.20201013" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.2" />
+    <PackageReference Include="SixLabors.ImageSharp.Drawing" Version="1.0.0-beta11" />
   </ItemGroup>
 
 

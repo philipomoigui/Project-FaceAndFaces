@@ -20,5 +20,7 @@ namespace FacesAPI.Extensions
                     .AllowCredentials()
                  );
             });
+
+        public static void ConfigureCors(this IServiceCollection services) =>
     }
 }

@@ -41,8 +41,8 @@ namespace NotificationService.Messages.Consumer
                 }
 
                 //Send Email To Customer
-                string[] mailAddress = { result.UserEmail };
-                await _emailSender.SendMessageAsync(new Message(mailAddress, "Face And Faces - Images Found", "From Face And Faces", faceData));
+               // string[] mailAddress = { result.UserEmail };
+               // await _emailSender.SendMessageAsync(new Message(mailAddress, "Face And Faces - Images Found", "From Face And Faces", faceData));
 
 
                 await context.Publish<IOrderDispatchedEvent>(new

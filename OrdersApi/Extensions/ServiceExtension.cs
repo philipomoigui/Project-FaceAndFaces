@@ -89,12 +89,12 @@ namespace OrdersApi.Extensions
             });
         }
 
-        //public static void ConfigureMassTransit(this IServiceCollection services)
-        //{
-        //    services.AddMassTransit(m => {
-        //        m.AddConsumer<RegisterOrderCommandConsumer>();
-        //    });
-
-        //}
+        public static void ConfigureSignalR(this IServiceCollection services)
+        {
+            services.AddSignalR().AddJsonProtocol(options =>
+            {
+                options.PayloadSerializerOptions = null;
+            });
+        }
     }
 }

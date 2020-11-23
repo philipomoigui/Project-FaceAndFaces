@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using OrdersApi.Extensions;
+using OrdersApi.Hubs;
 using OrdersApi.Persistence;
 using OrdersApi.Services;
 
@@ -35,6 +36,7 @@ namespace OrdersApi
             services.AddTransient<IOrderRepository, OrderRepository>();
             services.AddSingleton<IHostedService, BusService>();
             services.ConfigureDbContext(Configuration);
+            services.ConfigureSignalR();
             services.ConfigureCors();
             services.AddControllers();
         }
@@ -58,6 +60,7 @@ namespace OrdersApi
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<OrderHub>("/orderhub");
             });
         }
     }
