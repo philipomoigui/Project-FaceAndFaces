@@ -1,4 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using FacesApi;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +25,28 @@ namespace FacesAPI.Extensions
                  );
             });
 
-        public static void ConfigureCors(this IServiceCollection services) =>
+        public static void ConfigureAzureCrednetials(this IServiceCollection services, IConfiguration configuration)
+        {
+            var config = new AzureFaceConfiguration();
+            configuration.Bind("AzureFaceConfiguration", config);
+            services.AddSingleton(config);
+        };
+
+        public static void ConfigureImageSharpSynchronousCalls(this IServiceCollection services)
+        {
+            //if using Kestrel
+            services.Configure<KestrelServerOptions>(opt =>
+            {
+                opt.AllowSynchronousIO = true;
+            });
+
+            //if using IIS
+            services.Configure<IISServerOptions>(opt =>
+            {
+                opt.AllowSynchronousIO = true;
+            });
+        }
+
+
     }
 }

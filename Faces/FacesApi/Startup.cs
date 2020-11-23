@@ -28,6 +28,10 @@ namespace FacesApi
         {
             services.ConfigureCors();
 
+            services.ConfigureAzureCrednetials(Configuration);
+
+            services.ConfigureImageSharpSynchronousCalls();
+
             services.AddControllers();
         }
 
