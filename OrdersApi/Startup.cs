@@ -38,6 +38,7 @@ namespace OrdersApi
             services.ConfigureDbContext(Configuration);
             services.ConfigureSignalR();
             services.ConfigureCors();
+            services.Configure<OrderSettings>(Configuration);
             services.AddControllers();
         }
 

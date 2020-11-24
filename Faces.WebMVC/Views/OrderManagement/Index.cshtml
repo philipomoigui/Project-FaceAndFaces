@@ -1,4 +1,5 @@
 ﻿@model List<OrderViewModel>
+@inject IOptions<AppSettings> _settings
 
 @{
     ViewData["Title"] = "Orders List";
@@ -29,13 +30,14 @@
     </tbody>
 </table>
 
+
 @section Scripts{
     <script src="~/lib/signalr/dist/browser/signalr.js"></script>
     <script type="text/javascript">
 
         var timerId;
         const connection = new signalR.HubConnectionBuilder()
-            .withUrl('https://localhost:44303/orderhub')
+            .withUrl('@_settings.Value.SignalRHubUrl/orderhub')
             .configureLogging(signalR.LogLevel.Debug)
             .withAutomaticReconnect()
             .build();

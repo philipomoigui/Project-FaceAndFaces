@@ -16,7 +16,7 @@ namespace Faces.WebMVC.Extensions
             services.AddSingleton(provider => Bus.Factory.CreateUsingRabbitMq(
                 config =>
                 {
-                    config.Host("localhost", "/", h => { });
+                    config.Host("rabbitmq", "/", h => { });
                     services.AddSingleton(provider => provider.GetRequiredService<IBusControl>());
                     services.AddSingleton<IHostedService, BusService>();
                 }

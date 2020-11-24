@@ -20,7 +20,7 @@ namespace OrdersApi.Extensions
             services.AddSingleton(provider => Bus.Factory.CreateUsingRabbitMq(
                 config =>
                 {
-                    config.Host("localhost", "/", h => { });
+                    config.Host("rabbitmq", "/", h => { });
                     config.ReceiveEndpoint(RabbitMqMassTransitConstants.RegisterOrderCommandQueue, e =>
                     {
                         e.PrefetchCount = 16;
@@ -70,7 +70,7 @@ namespace OrdersApi.Extensions
 
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<OrdersContext>(opt => opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), sqloptions => {
+            services.AddDbContext<OrdersContext>(opt => opt.UseSqlServer(configuration["DefaultConnection"], sqloptions => {
                 sqloptions.EnableRetryOnFailure();
             }));
         }
