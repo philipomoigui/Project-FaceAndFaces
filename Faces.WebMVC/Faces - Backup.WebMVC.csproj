@@ -4,14 +4,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     <UserSecretsId>5cf0c5fe-dbfb-4b27-8bd6-7a134803715c</UserSecretsId>
-    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MassTransit" Version="7.0.6" />
     <PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.0.6" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="7.0.6" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />
     <PackageReference Include="refit" Version="5.2.1" />
   </ItemGroup>

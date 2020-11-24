@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  facesapi:
+    image: ${DOCKER_REGISTRY-}facesapi
+    build:
+      context: .
+      dockerfile: Faces/FacesApi/Dockerfile
+
+  notificationservice:
+    image: ${DOCKER_REGISTRY-}notificationservice
+    build:
+      context: .
+      dockerfile: CustomerNotification/NotificationService/Dockerfile
+
+
+  faces.webmvc:
+    image: ${DOCKER_REGISTRY-}faceswebmvc
+    build:
+      context: .
+      dockerfile: Faces.WebMVC/Dockerfile
+
+
+  ordersapi:
+    image: ${DOCKER_REGISTRY-}ordersapi
+    build:
+      context: .
+      dockerfile: OrdersApi/Dockerfile
+
